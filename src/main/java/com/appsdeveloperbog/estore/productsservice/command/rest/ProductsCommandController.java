@@ -4,8 +4,12 @@ import com.appsdeveloperbog.estore.productsservice.command.CreateProductCommand;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -22,7 +26,7 @@ public class ProductsCommandController {
     }
 
     @PostMapping
-    public String createProduct(@RequestBody CreateProductRestModel createProductRestModel) {
+    public String createProduct(@Valid @RequestBody CreateProductRestModel createProductRestModel) {
         CreateProductCommand createProductCommand = CreateProductCommand.builder()
                 .price(createProductRestModel.getPrice())
                 .quantity(createProductRestModel.getQuantity())
@@ -39,18 +43,18 @@ public class ProductsCommandController {
         return returnValue;
     }
 
-    @GetMapping
-    public String getProduct() {
-        return "HTTP GET Handled" + env.getProperty("local.server.port");
-    }
-
-    @PutMapping
-    public String updateProduct() {
-        return "HTTP PUT Handled";
-    }
-
-    @DeleteMapping
-    public String deleteProduct() {
-        return "HTTP DELETE Handled";
-    }
+//    @GetMapping
+//    public String getProduct() {
+//        return "HTTP GET Handled" + env.getProperty("local.server.port");
+//    }
+//
+//    @PutMapping
+//    public String updateProduct() {
+//        return "HTTP PUT Handled";
+//    }
+//
+//    @DeleteMapping
+//    public String deleteProduct() {
+//        return "HTTP DELETE Handled";
+//    }
 }
